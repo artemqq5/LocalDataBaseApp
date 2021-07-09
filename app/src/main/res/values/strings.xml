@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LocalDataBaseSQLite</string>
+    <string name="input_name">Имя</string>
+    <string name="input_lastName">Фамилия</string>
+    <string name="input_email">Электронный адрес</string>
+    <string name="button_next">Продолжить</string>
+    <string name="button_skip">Пропустить</string>
+    <string name="button_delete">Удалить</string>
+    <string name="button_reset">Сбросить</string>
+
+
+</resources>
