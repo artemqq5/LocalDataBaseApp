@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
@@ -17,16 +14,22 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ppatsrrif.one.javaproject_remainall.DataBase.DBManager;
+import ppatsrrif.one.javaproject_remainall.HelperClass.CheckStr;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // variable for registration
-    MaterialButton nextButton, skipButton;
-    MaterialRadioButton radioButtonMale, radioButtonFemale;
-    TextInputLayout editName, editLastName, editGmail;
+    private MaterialButton nextButton, skipButton;
+    private MaterialRadioButton radioButtonMale, radioButtonFemale;
+    private TextInputLayout editName, editLastName, editGmail;
 
     // create a object DBManager
-    DBManager dbManager = new DBManager(this);
+    private DBManager dbManager = new DBManager(this);
+
+    //create object for check str
+    CheckStr checkStr = new CheckStr();
 
 
     @Override
@@ -37,22 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // open database
         dbManager.openDB();
 
-        // declaring variable for registration
-        nextButton = findViewById(R.id.nextButton);
-        skipButton = findViewById(R.id.skipButton);
-
-        radioButtonMale = findViewById(R.id.radioButtonMale);
-        radioButtonFemale = findViewById(R.id.radioButtonFemale);
-
-        editName = findViewById(R.id.editName);
-        editLastName = findViewById(R.id.editLastName);
-        editGmail = findViewById(R.id.editGmail);
+        // initializing all variable
+        initialize();
 
         // setOnClick on buttons
         nextButton.setOnClickListener(this);
         skipButton.setOnClickListener(this);
-
-
 
     }
 
@@ -84,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else sex = "Женщина";
 
                 // check name, lastName, email on regex
-                if(checkName(name, "^[A-Z][a-z]+$", 2, editName) &&
-                        checkName(lastName, "^[A-Z][a-z]+$", 2, editLastName) &&
-                        checkLoginEmail(gmail,  4, editGmail, 3)) {
+                if(checkStr.checkName(name, "^[A-Z][a-z]+$", 2, editName) &&
+                        checkStr.checkName(lastName, "^[A-Z][a-z]+$", 2, editLastName) &&
+                        checkStr.checkLoginEmail(gmail,  4, editGmail, 3, dbManager)) {
 
                     // write data to database
                     dbManager.writeInDB(name, lastName, gmail, sex);
@@ -108,57 +101,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // check email on coincidence and contains special symbol
-    public boolean checkLoginEmail(String str, int i, TextInputLayout editText, int who) {
 
-        // set off all errors on TextInput
-        editText.setError(null);
 
-        // checking on length stroke
-        if(!str.equals(" ") && str.length() > i) {
-            // check on special symbol
-            if(str.contains("@")) {
-                // check on coincidence
-                if(dbManager.checkLogin(str, who)) {
-                    return true;
-                } else {
-                    editText.setError("Это данные другого пользователя");
-                    return false;
-                }
-            } else {
-                editText.setError("Поле не содержит специальный символ @");
-                return false;
-            }
-        } else {
-            editText.setError("Поле содержит мало символов");
-            return false;
-        }
+    private void initialize() {
+        nextButton = findViewById(R.id.nextButton);
+        skipButton = findViewById(R.id.skipButton);
+
+        radioButtonMale = findViewById(R.id.radioButtonMale);
+        radioButtonFemale = findViewById(R.id.radioButtonFemale);
+
+        editName = findViewById(R.id.editName);
+        editLastName = findViewById(R.id.editLastName);
+        editGmail = findViewById(R.id.editGmail);
     }
 
-    // check name and lastName
-    public boolean checkName(String str, String reg, int i, TextInputLayout editText) {
 
-        // regex for checking
-        Pattern r = Pattern.compile(reg);
-        Matcher m = r.matcher(str);
-
-        // set off all errors with TextInput
-        editText.setError(null);
-
-        // checking on length stroke
-        if(!str.equals(" ") && str.length() > i) {
-            // check on special regex
-            if(m.matches()) {
-                return true;
-            } else {
-                editText.setError("Поле должно начинаться с большой буквы и не содержать посторонних символов");
-                return false;
-            }
-        } else {
-            editText.setError("Поле содержит мало символов");
-            return false;
-        }
-    }
 
 
     @Override

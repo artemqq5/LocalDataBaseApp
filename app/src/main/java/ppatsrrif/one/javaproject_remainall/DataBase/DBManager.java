@@ -1,4 +1,4 @@
-package ppatsrrif.one.javaproject_remainall;
+package ppatsrrif.one.javaproject_remainall.DataBase;
 
 
 import android.content.ContentValues;
@@ -12,13 +12,13 @@ import java.util.ArrayList;
 public class DBManager {
 
     // variable: Context, sqliteDataBase, Class openHelper
-    Context context;
-    SQLiteDatabase sqLiteDatabase;
-    DBOpenHelper dbOpenHelper;
+    private Context context;
+    private SQLiteDatabase sqLiteDatabase;
+    private DBOpenHelper dbOpenHelper;
 
 
     // get Context and create object DBOpenHelper
-    DBManager(Context context) {
+    public DBManager(Context context) {
         this.context = context;
         dbOpenHelper = new DBOpenHelper(context);
     }

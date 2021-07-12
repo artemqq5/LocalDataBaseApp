@@ -1,4 +1,4 @@
-package ppatsrrif.one.javaproject_remainall;
+package ppatsrrif.one.javaproject_remainall.DataBase;
 
 public final class DataBaseConstants {
 

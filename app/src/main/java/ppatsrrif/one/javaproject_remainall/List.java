@@ -5,39 +5,42 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
+import ppatsrrif.one.javaproject_remainall.DataBase.DBManager;
+
 public class List extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
     // button for control app
-    MaterialButton deleteButton, dropButton;
+    private MaterialButton deleteButton, dropButton;
 
     // listview, adapter, and arraylist with data
-    ListView listPeople;
-    ArrayAdapter adapterMultiple;
-    ArrayList<String> listLastNames = new ArrayList();
+    private ListView listPeople;
+    private ArrayAdapter adapterMultiple;
+
+    // lists lastName & email
+    private ArrayList<String> listLastNames = new ArrayList();
+    private ArrayList<String> listEmail = new ArrayList();
 
     // create DBManager object
-    DBManager dbManager = new DBManager(this);
+    private DBManager dbManager = new DBManager(this);
 
     // dialog and his components
-    MaterialTextView namePersonD, emailPersonD, sexPersonD;
-    Dialog dialog;
+    private MaterialTextView namePersonD, emailPersonD, sexPersonD;
+    private Dialog dialog;
 
 
 
@@ -46,24 +49,14 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_info);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(true);
+        // creating dialog
+        createDialog();
 
         // open database
         dbManager.openDB();
 
-        // declaring variable
-        deleteButton = findViewById(R.id.deleteButton);
-        dropButton = findViewById(R.id.dropButton);
-
-        listPeople = findViewById(R.id.listPeople);
-
-        namePersonD = dialog.findViewById(R.id.namePersonD);
-        emailPersonD = dialog.findViewById(R.id.emailPersonD);
-        sexPersonD = dialog.findViewById(R.id.sexPersonD);
+        // initializing variable
+        initialize();
 
         // inflate arraylist with data
         inflateList();
@@ -83,30 +76,35 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
 
     @Override
     public void onClick(View view) {
-        if(!listLastNames.isEmpty() && listLastNames != null) {
+        if(!listEmail.isEmpty() && listEmail != null) {
             switch (view.getId()) {
                 case R.id.deleteButton:
 
                     // create boolean list with checked positions
                     SparseBooleanArray booleanArray = listPeople.getCheckedItemPositions();
+                    Log.i("logingg", booleanArray + " - boolean array");
 
                     // create copy list to refresh listView list
-                    ArrayList<String> copy = new ArrayList<>();
+                    ArrayList<String> copyEmail = new ArrayList<>();
+                    ArrayList<String> copyLastName = new ArrayList<>();
 
                     // delete from database elements whose has in boolean list
                     for(int i=0; i<booleanArray.size(); i++) {
                         if(booleanArray.get(i)) {
                             // remove element from database
-                            dbManager.deleteFromDB(listLastNames.get(i));
+                            dbManager.deleteFromDB(listEmail.get(i));
+                            Log.i("logingg", listEmail.get(i) + " - =");
                             // add remove element to copy list
-                            copy.add(listLastNames.get(i));
+                            copyEmail.add(listEmail.get(i));
+                            copyLastName.add(listLastNames.get(i));
                         }
                     }
 
                     // remove elements of list listview whose was delete from database
-                    for(int i=0; i<listLastNames.size(); i++) {
-                        if(listLastNames.contains(copy.get(i))) {
-                            listLastNames.remove(copy.get(i));
+                    for(int i=0; i<copyEmail.size(); i++) {
+                        if(listEmail.contains(copyEmail.get(i))) {
+                            listEmail.remove(copyEmail.get(i));
+                            listLastNames.remove(copyLastName.get(i));
                         }
                     }
 
@@ -145,9 +143,33 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
         return false;
     }
 
-    public void inflateList() {
+    private void inflateList() {
         // get list from database with data lastName
         listLastNames = dbManager.readDB(2);
+
+        // get list from database with data email
+        listEmail = dbManager.readDB(3);
+    }
+
+    private void createDialog() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_info);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+    }
+
+    private void initialize() {
+
+        deleteButton = findViewById(R.id.deleteButton);
+        dropButton = findViewById(R.id.dropButton);
+
+        listPeople = findViewById(R.id.listPeople);
+
+        namePersonD = dialog.findViewById(R.id.namePersonD);
+        emailPersonD = dialog.findViewById(R.id.emailPersonD);
+        sexPersonD = dialog.findViewById(R.id.sexPersonD);
+
     }
 
     @Override
