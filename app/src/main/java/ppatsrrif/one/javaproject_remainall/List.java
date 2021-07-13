@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +38,7 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
     private DBManager dbManager = new DBManager(this);
 
     // dialog and his components
-    private MaterialTextView namePersonD, emailPersonD, sexPersonD;
+    private MaterialTextView namePersonD, emailPersonD, genderPersonD;
     private Dialog dialog;
 
 
@@ -82,7 +81,6 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
 
                     // create boolean list with checked positions
                     SparseBooleanArray booleanArray = listPeople.getCheckedItemPositions();
-                    Log.i("logingg", booleanArray + " - boolean array");
 
                     // create copy list to refresh listView list
                     ArrayList<String> copyEmail = new ArrayList<>();
@@ -93,7 +91,7 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
                         if(booleanArray.get(i)) {
                             // remove element from database
                             dbManager.deleteFromDB(listEmail.get(i));
-                            Log.i("logingg", listEmail.get(i) + " - =");
+
                             // add remove element to copy list
                             copyEmail.add(listEmail.get(i));
                             copyLastName.add(listLastNames.get(i));
@@ -130,12 +128,12 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
         // get all data from database and show dialog
         ArrayList<String> names = dbManager.readDB(1);
         ArrayList<String> emails = dbManager.readDB(3);
-        ArrayList<String> sexes = dbManager.readDB(4);
+        ArrayList<String> genders = dbManager.readDB(4);
         ArrayList<String> lastName = dbManager.readDB(2);
 
         namePersonD.setText(names.get(i) + " " + lastName.get(i));
-        emailPersonD.setText("Почта: " + emails.get(i));
-        sexPersonD.setText("Стать: " + sexes.get(i));
+        emailPersonD.setText(getResources().getString(R.string.email_dialog) + emails.get(i));
+        genderPersonD.setText(getResources().getString(R.string.gender_dialog) + genders.get(i));
 
         dialog.show();
 
@@ -168,7 +166,7 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
 
         namePersonD = dialog.findViewById(R.id.namePersonD);
         emailPersonD = dialog.findViewById(R.id.emailPersonD);
-        sexPersonD = dialog.findViewById(R.id.sexPersonD);
+        genderPersonD = dialog.findViewById(R.id.sexPersonD);
 
     }
 

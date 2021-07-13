@@ -30,7 +30,7 @@ public class DBManager {
     }
 
     // method for write data in database
-    public void writeInDB(String name, String lastName, String email, String sex) {
+    public void writeInDB(String name, String lastName, String email, String gender) {
 
         // variable who keep data
         ContentValues contentValues = new ContentValues();
@@ -38,7 +38,7 @@ public class DBManager {
         contentValues.put(DataBaseConstants.DATABASE_NAME, name);
         contentValues.put(DataBaseConstants.DATABASE_LAST_NAME, lastName);
         contentValues.put(DataBaseConstants.DATABASE_EMAIL, email);
-        contentValues.put(DataBaseConstants.DATABASE_SEX, sex);
+        contentValues.put(DataBaseConstants.DATABASE_GENDER, gender);
 
         // set variable to database
         sqLiteDatabase.insert(DataBaseConstants.DATABASE_TABLE_NAME, null, contentValues);
@@ -83,7 +83,7 @@ public class DBManager {
                 commandSQL = DataBaseConstants.DATABASE_EMAIL;
                 break;
             case 4:
-                commandSQL = DataBaseConstants.DATABASE_SEX;
+                commandSQL = DataBaseConstants.DATABASE_GENDER;
                 break;
 
         }

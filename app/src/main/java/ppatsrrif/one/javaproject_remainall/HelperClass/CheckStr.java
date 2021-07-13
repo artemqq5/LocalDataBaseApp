@@ -1,13 +1,22 @@
 package ppatsrrif.one.javaproject_remainall.HelperClass;
 
+import android.content.Context;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ppatsrrif.one.javaproject_remainall.DataBase.DBManager;
+import ppatsrrif.one.javaproject_remainall.R;
 
 public class CheckStr {
+
+    private Context context;
+
+    public CheckStr(Context context) {
+        this.context = context;
+    }
 
     // check name and lastName
     public boolean checkName(String str, String reg, int i, TextInputLayout editText) {
@@ -25,11 +34,11 @@ public class CheckStr {
             if(m.matches()) {
                 return true;
             } else {
-                editText.setError("Поле должно начинаться с большой буквы и не содержать посторонних символов");
+                editText.setError(context.getResources().getString(R.string.error_caps));
                 return false;
             }
         } else {
-            editText.setError("Поле содержит мало символов");
+            editText.setError(context.getResources().getString(R.string.error_characters));
             return false;
         }
     }
@@ -48,15 +57,15 @@ public class CheckStr {
                 if(dbManager.checkLogin(str, who)) {
                     return true;
                 } else {
-                    editText.setError("Это данные другого пользователя");
+                    editText.setError(context.getResources().getString(R.string.error_another_data));
                     return false;
                 }
             } else {
-                editText.setError("Поле не содержит специальный символ @");
+                editText.setError(context.getResources().getString(R.string.error_contain));
                 return false;
             }
         } else {
-            editText.setError("Поле содержит мало символов");
+            editText.setError(context.getResources().getString(R.string.error_characters));
             return false;
         }
     }

@@ -10,6 +10,12 @@
     <string name="create_user">Create User</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="email_dialog">Email: </string>
+    <string name="gender_dialog">Gender: </string>
+    <string name="error_caps">Input must not start with caps and contain extraneous characters</string>
+    <string name="error_characters">Input contain few characters</string>
+    <string name="error_another_data">This is another user\'s data</string>
+    <string name="error_contain">Input not contain \'@\'</string>
 
 
 </resources>

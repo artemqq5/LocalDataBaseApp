@@ -19,7 +19,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE = "CREATE TABLE " + DataBaseConstants.DATABASE_TABLE_NAME +
             " (" + DataBaseConstants._ID + " INTEGER PRIMARY KEY," + DataBaseConstants.DATABASE_NAME + " TEXT," +
             DataBaseConstants.DATABASE_LAST_NAME + " TEXT," + DataBaseConstants.DATABASE_EMAIL + " TEXT," +
-            DataBaseConstants.DATABASE_SEX + " TEXT);";
+            DataBaseConstants.DATABASE_GENDER + " TEXT);";
 
     // string command to delete datatable
     private static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + DataBaseConstants.DATABASE_TABLE_NAME + ";";
