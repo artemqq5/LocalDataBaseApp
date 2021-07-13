@@ -1,3 +1,3 @@
 # LocalDataBaseApp
 
-I have created a simple app for write users to local database. I used principles material design.
+I have created a simple app for write users to local database. I used principles material design and sqlite
