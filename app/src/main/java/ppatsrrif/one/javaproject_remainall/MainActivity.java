@@ -14,8 +14,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Objects;
 
 import ppatsrrif.one.javaproject_remainall.DataBase.DBManager;
 import ppatsrrif.one.javaproject_remainall.HelperClass.CheckStr;
@@ -25,11 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // variable for registration
     private MaterialButton nextButton, skipButton;
-    private MaterialRadioButton radioButtonMale, radioButtonFemale;
+    private MaterialRadioButton radioButtonMale;
     private TextInputLayout editName, editLastName, editGmail;
 
     // create a object DBManager
-    private DBManager dbManager = new DBManager(this);
+    private final DBManager dbManager = new DBManager(this);
 
     //create object for check str
     CheckStr checkStr = new CheckStr(this);
@@ -111,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         skipButton = findViewById(R.id.skipButton);
 
         radioButtonMale = findViewById(R.id.radioButtonMale);
-        radioButtonFemale = findViewById(R.id.radioButtonFemale);
 
         editName = findViewById(R.id.editName);
         editLastName = findViewById(R.id.editLastName);

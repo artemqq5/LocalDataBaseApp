@@ -11,15 +11,13 @@ import java.util.ArrayList;
 
 public class DBManager {
 
-    // variable: Context, sqliteDataBase, Class openHelper
-    private Context context;
+    // variable: SqliteDataBase, Class openHelper
     private SQLiteDatabase sqLiteDatabase;
-    private DBOpenHelper dbOpenHelper;
+    private final DBOpenHelper dbOpenHelper;
 
 
     // get Context and create object DBOpenHelper
     public DBManager(Context context) {
-        this.context = context;
         dbOpenHelper = new DBOpenHelper(context);
     }
 
@@ -48,7 +46,7 @@ public class DBManager {
     public boolean checkLogin(String str2, int i) {
         // get array with type data
         ArrayList<String> arrayList = readDB(i);
-        Boolean b = true;
+        boolean b = true;
 
         // check on coincidence
         for(String str : arrayList) {
@@ -88,7 +86,7 @@ public class DBManager {
 
         }
 
-        String[] projection =  { commandSQL };;
+        String[] projection =  { commandSQL };
 
         // create cursor with data type
         Cursor cursor = sqLiteDatabase.query(DataBaseConstants.DATABASE_TABLE_NAME, projection,
@@ -109,7 +107,7 @@ public class DBManager {
     public void deleteFromDB(String email) {
         // string command
         String selection = DataBaseConstants.DATABASE_EMAIL + " LIKE ?";
-        String args[] = { email };
+        String[] args = { email };
 
         // set delete from database
         sqLiteDatabase.delete(DataBaseConstants.DATABASE_TABLE_NAME, selection, args);

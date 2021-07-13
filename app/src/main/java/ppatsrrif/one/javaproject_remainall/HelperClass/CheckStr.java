@@ -12,7 +12,7 @@ import ppatsrrif.one.javaproject_remainall.R;
 
 public class CheckStr {
 
-    private Context context;
+    private final Context context;
 
     public CheckStr(Context context) {
         this.context = context;

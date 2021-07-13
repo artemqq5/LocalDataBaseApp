@@ -35,7 +35,7 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
     private ArrayList<String> listEmail = new ArrayList();
 
     // create DBManager object
-    private DBManager dbManager = new DBManager(this);
+    private final DBManager dbManager = new DBManager(this);
 
     // dialog and his components
     private MaterialTextView namePersonD, emailPersonD, genderPersonD;
@@ -75,7 +75,7 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
 
     @Override
     public void onClick(View view) {
-        if(!listEmail.isEmpty() && listEmail != null) {
+        if(!listEmail.isEmpty()) {
             switch (view.getId()) {
                 case R.id.deleteButton:
 

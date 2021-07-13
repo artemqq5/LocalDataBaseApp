@@ -3,9 +3,8 @@ package ppatsrrif.one.javaproject_remainall.DataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.Nullable;
 
-import ppatsrrif.one.javaproject_remainall.DataBase.DataBaseConstants;
+import androidx.annotation.Nullable;
 
 
 public class DBOpenHelper extends SQLiteOpenHelper {
