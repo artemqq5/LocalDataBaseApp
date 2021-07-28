@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else gender = getResources().getString(R.string.female);
 
                 // check name, lastName, email on regex
-                if(checkStr.checkName(name, "^[A-Z][a-z]+$", 2, editName) &&
-                        checkStr.checkName(lastName, "^[A-Z][a-z]+$", 2, editLastName) &&
+                if(checkStr.checkName(name, "^[\\p{L}]+$", 2, editName) &&
+                        checkStr.checkName(lastName, "^[\\p{L}]+$", 2, editLastName) &&
                         checkStr.checkLoginEmail(gmail,  4, editGmail, 3, dbManager)) {
 
                     // write data to database
