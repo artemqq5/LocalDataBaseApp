@@ -30,3 +30,6 @@ Overall, "LocalDataBaseApp" is a comprehensive solution for user data management
 - Android SDK: Набір розробки Android SDK надає інструменти та бібліотеки, необхідні для створення інтуїтивно зрозумілого інтерфейсу користувача та інтеграції з основними функціями Android.
 - SQLite: Використання SQLite як легкої та ефективної системи управління базами даних дозволяє локально зберігати великі обсяги даних без необхідності підключення до сервера.
 - Material Design: Принципи Material Design забезпечують створення візуально привабливого та зручного для користувача інтерфейсу, підвищуючи загальний користувацький досвід.
+
+![alt text](https://github.com/artemqq5/LocalDataBaseApp/assets/52855607/9371fa24-21f4-43eb-a01f-886215975d4c) ![alt text](https://github.com/artemqq5/LocalDataBaseApp/assets/52855607/f4b2676f-de9b-4a43-b76c-667fea9d2e22)
+
